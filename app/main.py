@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from app.core.config import settings
 from app.api.routes.health import router as health_router
+from app.api.routes.users import router as user_router
 from app.db.base import Base
 from app.db.session import engine
 
@@ -18,6 +19,7 @@ def create_app() -> FastAPI:
     Base.metadata.create_all(bind=engine)
 
     app.include_router(health_router)
+    app.include_router(user_router)
 
     return app
 
