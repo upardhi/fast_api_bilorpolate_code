@@ -1,10 +1,11 @@
-from pydantic import BaseModel, EmailStr
+from pydantic import BaseModel, EmailStr, constr
 from typing import Optional
 
 # what client sends to create user
 class UserCreate(BaseModel):
     name: str
     email: EmailStr
+    password: constr(min_length=8, max_length=256)
 
 
 # what API returns to client
