@@ -2,9 +2,9 @@ from datetime import datetime, timedelta
 from jose import jwt
 from passlib.context import CryptContext
 
-# ✅ USE bcrypt_sha256 (important!)
+# ✅ FINAL: Argon2 (no length limits, production safe)
 pwd_context = CryptContext(
-    schemes=["bcrypt_sha256"],
+    schemes=["argon2"],
     deprecated="auto"
 )
 
