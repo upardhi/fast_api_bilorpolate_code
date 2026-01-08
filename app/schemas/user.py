@@ -25,3 +25,5 @@ class UserUpdate(BaseModel):
     class Config:
         orm_mode = True
 
+
+

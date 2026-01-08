@@ -1,6 +1,7 @@
 from datetime import datetime, timedelta
 from jose import jwt
 from passlib.context import CryptContext
+from app.core.config import settings
 
 # ✅ FINAL: Argon2 (no length limits, production safe)
 pwd_context = CryptContext(
@@ -8,7 +9,7 @@ pwd_context = CryptContext(
     deprecated="auto"
 )
 
-SECRET_KEY = "CHANGE_THIS_SECRET_IN_PRODUCTION"
+SECRET_KEY = settings.secret_key
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 30
 
