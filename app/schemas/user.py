@@ -6,6 +6,7 @@ class UserCreate(BaseModel):
     name: str
     email: EmailStr
     password: constr(min_length=8, max_length=256)
+    role: str
 
 
 # what API returns to client
@@ -13,7 +14,7 @@ class UserResponse(BaseModel):
     id: int
     name: str
     email: EmailStr
-
+    role: str
     class Config:
         orm_mode = True
 
