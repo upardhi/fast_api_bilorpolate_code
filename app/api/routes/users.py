@@ -5,6 +5,7 @@ from app.schemas.user import UserCreate, UserResponse, UserUpdate
 from app.models.user import User
 from app.db.session import get_db
 from app.core.security import hash_password
+from app.api.deps import require_roles
 
 
 router = APIRouter(prefix="/users", tags=["Users"])
@@ -21,7 +22,8 @@ def create_user(user: UserCreate, db: Session = Depends(get_db)):
     new_user = User(
         name=user.name,
         email=user.email,
-        hashed_password=hash_password(user.password)
+        hashed_password=hash_password(user.password),
+        role=user.role
     )
 
     db.add(new_user)
@@ -33,7 +35,7 @@ def create_user(user: UserCreate, db: Session = Depends(get_db)):
 
 # GET ALL USERS
 @router.get("/", response_model=list[UserResponse])
-def get_users(db: Session = Depends(get_db)):
+def get_users( current_user: User = Depends(("admin", "manager")),db: Session = Depends(get_db)):
     users = db.query(User).all()
     return users
 
